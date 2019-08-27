@@ -3,7 +3,7 @@
 #include <arpa/inet.h>
 #include <string.h>
 #include <unistd.h>
-
+#include<pthread.h>
 
 int main(int argc, char*argv[])
 {	
@@ -34,37 +34,18 @@ int main(int argc, char*argv[])
 	puts("Bind successful");
 
 	// listen for connection on port 5100
-	listen(sockid, 1);	// on that socket, 1 is the number of participants that can wait for a connection
-	puts("waiting for incoming connecitons...");
-
-	struct sockaddr_in client;	// client is the active participant
-	int socketaddress_size = sizeof(struct sockaddr_in);
-	int client_sock = accept(sockid, (struct sockaddr *) &client, (socklen_t*) &socketaddress_size);
-	if(client_sock < 0)
+	if(listen(sockid, 5)==0)
 	{
-		perror("Accept failed...");
-		return 1;
+		puts("waiting for incoming connecitons...");	
 	}
-	puts("Accept passed... Connection accepted");
-
-
-	char message_buffer[512];
-	// (sockid, where we store message, message length, flags)
-	int read;	// returns -1 if fail
-
-	while((read = recv(client_sock, message_buffer, 256, 0)) > 0)
+	else
 	{
-		write(client_sock, message_buffer, strlen(message_buffer));
-	}
+		pthread_t tid[5];
+		
+		while(1)
+		{
 
-	if(read == 0)
-	{
-		puts("Client disconnected");
-		fflush(stdout);
-	}
-	else if(read == -1)
-	{
-		perror("recv failed");
+		}
 	}
 
 

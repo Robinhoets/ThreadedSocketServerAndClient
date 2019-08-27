@@ -7,6 +7,15 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 
+
+void * sock_thread(void *arg)
+{
+
+}
+
+
+
+
 int main(int argc, char *argv[])
 {
 	int sock;
