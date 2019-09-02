@@ -9,8 +9,13 @@ int main(int argc, char*argv[])
 {	
 
 	
-	int sockid;
+	int sockid, newSocket;
 	struct sockaddr_in addport;
+
+	struct sockaddr_storage sStore;// robert
+	socklen_t addr_size;
+
+
 	// create socket id with our (family, type, protocol)
 	// (how we receive and send data, constant strem of characters, default 0)
 	sockid = socket(AF_INET, SOCK_STREAM, 0);
@@ -44,6 +49,13 @@ int main(int argc, char*argv[])
 		
 		while(1)
 		{
+			addr_size = sizeof sStore;
+			newSocket = accept(sockid, (struct sockaddr *) &addport, addr_size);
+
+			// create a thread upon client request socketthread
+
+
+			//join threads
 
 		}
 	}
